@@ -29,24 +29,24 @@ namespace Sorts
 
             public int[] OriginalArray { get; private set; }
 
-            public int LenghtArray { get; private set; }
-            public void SetLenght(int NewLenght)
-            {
-                LenghtArray = NewLenght;
-            }
-            public SortingArray(int СountElement)
-            {
-                LenghtArray = СountElement;
-                OriginalArray = new int[LenghtArray];
-                //ArrayForSort = new int[LenghtArray];
-            }
+            //public int LenghtArray { get; private set; }
+            //public void SetLenght(int NewLenght)
+            //{
+            //    LenghtArray = NewLenght;
+            //}
+            //public SortingArray(int СountElement)
+            //{
+            //    LenghtArray = СountElement;
+            //    OriginalArray = new int[LenghtArray];
+            //    //ArrayForSort = new int[LenghtArray];
+            //}
 
 
             /// <summary>
-            /// Задание нового массива для сортировки
+            /// Создание нового массива для сортировки
             /// </summary>
             /// <returns></returns>
-            int[] SetNewArray()
+            int[] CreateNewArray(int LenghtArray)
             {
                 int[] tmpArray = new int[LenghtArray];
 
@@ -76,9 +76,9 @@ namespace Sorts
                 return GetArray(OriginalArray);
             }
 
-            public int[] GetNewArray()
+            public int[] GetNewArray(int LenghtArray)
             {
-                OriginalArray = SetNewArray();
+                OriginalArray = CreateNewArray(LenghtArray);
            
                 return GetArray();
             }
@@ -89,19 +89,16 @@ namespace Sorts
         {
             InitializeComponent();
 
-            //int[] a1 = { 1, 2, 3 };
-            //int[] a2 = new int[3];
-            //a2 = (int[]) a1.Clone();
-            //a2[0] = 22;
-            
-           // MessageBox.Show(a1[0].ToString());
+            labelBubbleSpeed.Content = "";
+            labelInsertionSpeed.Content = "";
+            labelQuickSpeed.Content = "";
+            labelShellSpeed.Content = "";
 
             if (int.TryParse(textBoxCountElement.Text, out int count))
             { 
-                Sort = new SortingArray(count);
-                Sort.GetNewArray();
-            }
-               
+                Sort = new SortingArray();
+                Sort.GetNewArray(count);
+            }   
             else
             {
                 MessageBox.Show("Количество элементов массива должно быть числом");
@@ -177,13 +174,15 @@ namespace Sorts
 
             TimeSpan speed;
 
-           //если перед сортировкой нужно получить новый массив
-            if ((checkBox.IsChecked == true) || (Sort.OriginalArray.Length != int.Parse(textBoxCountElement.Text)))
-                Sort.GetNewArray();
+            int CountElement = int.Parse(textBoxCountElement.Text);
+
+            //если перед сортировкой нужно получить новый массив
+            if ((checkBox.IsChecked == true) || (Sort.OriginalArray.Length != CountElement))
+                Sort.GetNewArray(CountElement);
 
             ShowArray(Sort.OriginalArray, textBox);
 
-            int[] ArrayForSort = new int[Sort.OriginalArray.Length];
+            int[] ArrayForSort; // = new int[Sort.OriginalArray.Length];
 
             if (checkBoxBubble.IsChecked == true)
             {
