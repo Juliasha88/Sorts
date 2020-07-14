@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
@@ -94,6 +95,9 @@ namespace Sorts
             labelQuickSpeed.Content = "";
             labelShellSpeed.Content = "";
 
+            textBoxSource.Text = string.Empty;
+            textBoxSorted.Text = string.Empty;
+
             if (int.TryParse(textBoxCountElement.Text, out int count))
             { 
                 Sort = new SortingArray();
@@ -119,9 +123,8 @@ namespace Sorts
         }
 
 
-        static TimeSpan BubleSort(int[] arr)
+        static void BubleSort(int[] arr)
         {
-            DateTime TimeStart = DateTime.Now;
             for (int j = 0; j < arr.Length; j++)
             {
                 bool flag = false;
@@ -138,13 +141,11 @@ namespace Sorts
                 //если перестановок больше не было, значит массив отсортирован
                 if (!flag)  break;
             }
-            return DateTime.Now - TimeStart;
         }
 
 
-        static TimeSpan InsertionSort(int[] arr)
+        static void InsertionSort(int[] arr)
         {
-            DateTime TimeStart = DateTime.Now;
             int tmp;
             for (int j = 0; j < arr.Length-1; j++)
             {
@@ -163,34 +164,40 @@ namespace Sorts
                         arr[++i] = tmp;     
                     }
             }
-            return DateTime.Now - TimeStart;
         }
 
 
 
         private void buttonSort_Click(object sender, RoutedEventArgs e)
         {
-            //SortingArray Sort = new SortingArray(int.Parse(textBoxCountElement.Text));
 
-            TimeSpan speed;
-
+            //для создания массива длинной CountElement
             int CountElement = int.Parse(textBoxCountElement.Text);
 
             //если перед сортировкой нужно получить новый массив
             if ((checkBox.IsChecked == true) || (Sort.OriginalArray.Length != CountElement))
                 Sort.GetNewArray(CountElement);
+            
+            //если нужно отобразить исходный массив
+            if (checkBoxShowSourceArray.IsChecked == true)
+            ShowArray(Sort.OriginalArray, textBoxSource);
 
-            ShowArray(Sort.OriginalArray, textBox);
+            //этот массив будет передавать в методы для сортировки
+            int[] ArrayForSort;
 
-            int[] ArrayForSort; // = new int[Sort.OriginalArray.Length];
+            //для измерения времени выполнения сортировок
+            Stopwatch stopwatch;
 
             if (checkBoxBubble.IsChecked == true)
             {
                 ArrayForSort = Sort.GetArray();
-                speed = BubleSort(ArrayForSort);
 
-                labelBubbleSpeed.Content = speed.Milliseconds.ToString();
-                //ShowArray(OriginalArray, textBox2);
+                stopwatch = Stopwatch.StartNew();
+                BubleSort(ArrayForSort);
+                stopwatch.Stop();
+
+                labelBubbleSpeed.Content = stopwatch.ElapsedMilliseconds.ToString();
+                //ShowArray(OriginalArray, textBoxSorted);
                 if (!CheckSort(ArrayForSort))
                     labelBubbleSpeed.Content = "Ошибка сортировки!";
             }
@@ -198,10 +205,13 @@ namespace Sorts
             if (checkBoxInsertion.IsChecked == true)
             {
                 ArrayForSort = Sort.GetArray();
-                speed = InsertionSort(ArrayForSort);
 
-                labelInsertionSpeed.Content = speed.Milliseconds.ToString();
-                // ShowArray(NewArray, textBox2);
+                stopwatch = Stopwatch.StartNew();
+                InsertionSort(ArrayForSort);
+                stopwatch.Stop();
+
+                labelInsertionSpeed.Content = stopwatch.ElapsedMilliseconds.ToString();
+                // ShowArray(NewArray, textBoxSorted);
                 if (!CheckSort(ArrayForSort))
                     labelInsertionSpeed.Content = "Ошибка сортировки!";
             }
@@ -209,10 +219,13 @@ namespace Sorts
             if (checkBoxQuick.IsChecked == true)
             {
                 ArrayForSort = Sort.GetArray();
-                speed = QuickSort(ArrayForSort);
 
-                labelQuickSpeed.Content = speed.Milliseconds.ToString();
-                //ShowArray(ArrayForSort, textBox2);
+                stopwatch = Stopwatch.StartNew();
+                QuickSort(ArrayForSort);
+                stopwatch.Stop();
+
+                labelQuickSpeed.Content = stopwatch.ElapsedMilliseconds.ToString();
+                //ShowArray(ArrayForSort, textBoxSorted);
                 if (!CheckSort(ArrayForSort))
                     labelQuickSpeed.Content = "Ошибка сортировки!";
             }
@@ -220,54 +233,51 @@ namespace Sorts
             if (checkBoxShell.IsChecked == true)
             {
                 ArrayForSort = Sort.GetArray();
-                speed = ShellSort(ArrayForSort);
 
-                labelShellSpeed.Content = speed.Milliseconds.ToString();
-                ShowArray(ArrayForSort, textBox2);
+                stopwatch = Stopwatch.StartNew();
+                ShellSort(ArrayForSort);
+                stopwatch.Stop();
+
+                labelShellSpeed.Content = stopwatch.ElapsedMilliseconds.ToString();
+                
+                if (checkBoxShowSortedArray.IsChecked == true )
+                ShowArray(ArrayForSort, textBoxSorted);
+                
                 if (!CheckSort(ArrayForSort))
                     labelShellSpeed.Content = "Ошибка сортировки!";
             }
         }
 
-        private TimeSpan ShellSort(int[] arr)
+        private void ShellSort(int[] arr)
         {
-            //throw new NotImplementedException();
-            DateTime TimeStart = DateTime.Now;
-
             int tmp;
             int d = arr.Length / 2;
-            for (int j = 0; j < arr.Length - 1; j++)
+            while (d >= 1)
             {
-                if (arr[j + d] < arr[j])
+                for (int j = d; j < arr.Length; j++)
                 {
-                    tmp = arr[j + d];
 
                     int i = j;
 
-                    while ((i >= 0) && (arr[i] > tmp))
+                    while ((i >= d) && (arr[i - d] > arr[i]))
                     {
-                        arr[i + 1] = arr[i];
-                        i--;
-                    }
-
-                    arr[++i] = tmp;
-
+                        tmp = arr[j - d];
+                        arr[i - d] = arr[i];
+                        arr[i] = tmp;
+                        i -= d;
+                    }                   
                 }
                 d /= 2;
             }
-
-            return DateTime.Now - TimeStart;
         }
 
-        static TimeSpan QuickSort(int[] arr)
+        static void QuickSort(int[] arr)
         {
-            DateTime TimeStart = DateTime.Now;
-
             Sort(arr, 0, arr.Length - 1);
             
             void Sort(int[] arrInner, int first, int last)
             {
-                //kk++;
+                //задаем опорный эллемент
                 int prop = arrInner[(last - first) / 2 + first];
                 int i = first;
                 int j = last;
@@ -285,7 +295,6 @@ namespace Sorts
                 if (j > first) Sort(arrInner, first, j);
                 if (i < last) Sort(arrInner, i, last);
             }
-                return DateTime.Now - TimeStart;
         }
 
         static bool CheckSort(int[] arr)

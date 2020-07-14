@@ -5,24 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sorts"
         mc:Ignorable="d"
-        Title="MainWindow" Height="511.213" Width="907.537">
+        Title="MainWindow" Height="408.013" Width="805.937">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="15" Margin="10,29,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="754"/>
-        <Grid HorizontalAlignment="Left" Height="163" Margin="25,69,0,0" VerticalAlignment="Top" Width="299">
-            <CheckBox x:Name="checkBoxBubble" Content="Пузырьком" HorizontalAlignment="Left" Margin="43,19,0,0" VerticalAlignment="Top" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxInsertion" Content="Вставками" HorizontalAlignment="Left" Margin="43,50,0,0" VerticalAlignment="Top" IsChecked="True"/>
-            <CheckBox x:Name="checkBoxQuick" Content="Быстрая" HorizontalAlignment="Left" Margin="43,82,0,0" VerticalAlignment="Top" IsChecked="True"/>
-            <Label x:Name="labelBubbleSpeed" Content="labelBubbleSpeed" HorizontalAlignment="Left" Margin="178,13,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="labelInsertionSpeed" Content="labelInsertionSpeed" HorizontalAlignment="Left" Margin="178,44,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="labelQuickSpeed" Content="labelQuickSpeed" HorizontalAlignment="Left" Margin="178,76,0,0" VerticalAlignment="Top"/>
-            <CheckBox x:Name="checkBoxShell" Content="Шелла" HorizontalAlignment="Left" Margin="43,113,0,0" VerticalAlignment="Top" IsChecked="True"/>
-            <Label x:Name="labelShellSpeed" Content="labelShellSpeed" HorizontalAlignment="Left" Margin="178,110,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxSource" HorizontalAlignment="Left" Height="27" Margin="10,259,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="754"/>
+        <Grid HorizontalAlignment="Left" Height="168" Margin="23,21,0,0" VerticalAlignment="Top" Width="299">
+            <CheckBox x:Name="checkBoxBubble" Content="Пузырьком" HorizontalAlignment="Left" Margin="42,41,0,0" VerticalAlignment="Top" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxInsertion" Content="Вставками" HorizontalAlignment="Left" Margin="42,72,0,0" VerticalAlignment="Top" IsChecked="True"/>
+            <CheckBox x:Name="checkBoxQuick" Content="Быстрая" HorizontalAlignment="Left" Margin="42,104,0,0" VerticalAlignment="Top" IsChecked="True"/>
+            <Label x:Name="labelBubbleSpeed" Content="labelBubbleSpeed" HorizontalAlignment="Left" Margin="177,35,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="labelInsertionSpeed" Content="labelInsertionSpeed" HorizontalAlignment="Left" Margin="177,66,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="labelQuickSpeed" Content="labelQuickSpeed" HorizontalAlignment="Left" Margin="177,98,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="checkBoxShell" Content="Шелла" HorizontalAlignment="Left" Margin="42,135,0,0" VerticalAlignment="Top" IsChecked="True"/>
+            <Label x:Name="labelShellSpeed" Content="labelShellSpeed" HorizontalAlignment="Left" Margin="177,132,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label3" Content="Время сортировки, мс" HorizontalAlignment="Left" Margin="163,4,0,0" VerticalAlignment="Top"/>
         </Grid>
-        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="21" Margin="10,257,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="727"/>
-        <Button x:Name="buttonSort" Content="Сортировать!" HorizontalAlignment="Left" Margin="489,49,0,0" VerticalAlignment="Top" Width="97" Height="38" Click="buttonSort_Click"/>
-        <CheckBox x:Name="checkBox" Content="Новый массив" HorizontalAlignment="Left" Margin="314,49,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label" Content="Крличество элементов массива" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBoxCountElement" HorizontalAlignment="Left" Height="23" Margin="243,12,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="54"/>
+        <TextBox x:Name="textBoxSorted" HorizontalAlignment="Left" Height="27" Margin="10,322,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="754"/>
+        <Button x:Name="buttonSort" Content="Сортировать!" HorizontalAlignment="Left" Margin="464,183,0,0" VerticalAlignment="Top" Width="97" Height="38" Click="buttonSort_Click"/>
+        <CheckBox x:Name="checkBox" Content="Новый массив" HorizontalAlignment="Left" Margin="464,57,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label" Content="Количество элементов массива" HorizontalAlignment="Left" Margin="523,17,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxCountElement" HorizontalAlignment="Left" Height="23" Margin="464,21,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="54"/>
+        <Label x:Name="label1" Content="Исходный массив:" HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label2" Content="Отсортированный массив:" HorizontalAlignment="Left" Margin="10,291,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBoxShowSourceArray" Content="Показать исходный массив" HorizontalAlignment="Left" Margin="464,97,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBoxShowSortedArray" Content="Показать отсортированный массив" HorizontalAlignment="Left" Margin="464,135,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
